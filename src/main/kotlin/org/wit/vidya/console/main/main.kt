@@ -5,7 +5,8 @@ import org.wit.vidya.console.models.VidyaModel
 
 private val logger = KotlinLogging.logger {}
 
-var vidya = VidyaModel()
+
+val games = ArrayList<VidyaModel>()
 
 fun main(args: Array<String>){
     logger.info { "Launching Placemark Console App" }
@@ -51,30 +52,78 @@ fun menu() : Int {
 
 fun viewWishlist() {
     println("View Wishlist")
+    println()
+    games.forEach { logger.info("${it}") }
 }
 
 fun addGame() {
+    var aVidya = VidyaModel()
 
     println("Add Game")
     println()
     print("Enter Game Name : ")
-    vidya.name = readLine()!!
+    aVidya.name = readLine()!!
     print("Enter Developer of Game : ")
-    vidya.dev = readLine()!!
-    println("You entered [ " + vidya.name + " ] for name, [ " + vidya.dev + " ] for developer")
+    aVidya.dev = readLine()!!
+
+    if (aVidya.name.isNotEmpty() && aVidya.dev.isNotEmpty()) {
+        aVidya.id = games.size.toLong()
+        games.add(aVidya.copy())
+        logger.info("Game Added : [ $aVidya ]")
+    }
+    else
+        logger.info("Game Not Added")
+
 }
 
 fun editGame() {
     println("Edit Game")
     println()
-    print("Enter a new name for [" + vidya.name + " ] : ")
-    vidya.name = readLine()!!
-    print("Enter a new developer for [ " + vidya.dev + " ] : ")
-    vidya.dev = readLine()!!
-    println("You updated [ " + vidya.name + " ] for name and [ " + vidya.dev + " ] for developer")
+    viewWishlist()
+    var searchId = getId()
+    val aVidya = search(searchId)
+    var tempName: String?
+    var tempDev: String?
+
+    if (aVidya != null) {
+        print("Enter a new name for [" + aVidya.name + " ] : ")
+        tempName = readLine()!!
+        print("Enter a new developer for [ " + aVidya.dev + " ] : ")
+        tempDev = readLine()!!
+        println("You updated [ " + aVidya.name + " ] for name and [ " + aVidya.dev + " ] for developer")
+
+
+        if (!tempName.isNullOrEmpty() && !tempDev.isNullOrEmpty()) {
+            aVidya.name = tempName
+            aVidya.dev = tempDev
+            println(
+                "You updated [ " + aVidya.name + " ] for name " +
+                        "and [ " + aVidya.dev + " ] for developer"
+            )
+            logger.info("Game Updated : [ $aVidya ]")
+        } else
+            println("Game not updated")
+    }
 }
 
 
 fun deleteGame() {
 
+}
+
+fun getId() : Long {
+    var strId : String? // String to hold user input
+    var searchId : Long // Long to hold converted id
+    print("Enter id to Search/Update : ")
+    strId = readLine()!!
+    searchId = if (strId.toLongOrNull() != null && !strId.isEmpty())
+        strId.toLong()
+    else
+        -9
+    return searchId
+}
+
+fun search(id: Long) : VidyaModel? {
+    var foundVidya: VidyaModel? = games.find { p -> p.id == id }
+    return foundVidya
 }
