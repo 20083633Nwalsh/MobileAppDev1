@@ -28,12 +28,16 @@ class VidyaMemStore : VidyaStore {
         logAll()
     }
 
-    override fun update(Vidya: VidyaModel) {
+    override fun edit(Vidya: VidyaModel) {
         var foundVidya = findOne(Vidya.id!!)
         if (foundVidya != null) {
             foundVidya.name = Vidya.name
             foundVidya.dev = Vidya.dev
         }
+    }
+
+    override fun delete(vidya: VidyaModel) {
+        games.remove(vidya)
     }
 
     internal fun logAll() {

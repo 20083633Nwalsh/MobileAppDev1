@@ -4,5 +4,6 @@ interface VidyaStore {
     fun findAll(): List<VidyaModel>
     fun findOne(id: Long): VidyaModel?
     fun create(vidya: VidyaModel)
-    fun update(vidya: VidyaModel)
+    fun edit(vidya: VidyaModel)
+    fun delete(vidya: VidyaModel)
 }

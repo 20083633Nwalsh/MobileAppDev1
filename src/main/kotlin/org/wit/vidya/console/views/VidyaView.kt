@@ -4,6 +4,7 @@ import mu.KotlinLogging
 
 import org.wit.vidya.console.main.vidyaView
 import org.wit.vidya.console.main.games
+import org.wit.vidya.console.models.VidyaJSONStore
 
 import org.wit.vidya.console.models.VidyaMemStore
 import org.wit.vidya.console.models.VidyaModel
@@ -32,7 +33,7 @@ class VidyaView {
         return option
     }
 
-    fun viewWishlist(games : VidyaMemStore) {
+    fun viewWishlist(games: VidyaJSONStore) {
         println("View Wishlist")
         println()
         games.logAll()
@@ -52,6 +53,8 @@ class VidyaView {
         vidya.name = readLine()!!
         print("Enter a Developer : ")
         vidya.dev = readLine()!!
+
+        //ADD GENRE AND NOTES
 
         return vidya.name.isNotEmpty() && vidya.dev.isNotEmpty()
     }
