@@ -3,7 +3,7 @@ package org.wit.vidya.console.models
 import mu.KotlinLogging
 
 private val logger = KotlinLogging.logger {}
-var lastId = 0L
+
 
 internal fun getId(): Long {
     return lastId++

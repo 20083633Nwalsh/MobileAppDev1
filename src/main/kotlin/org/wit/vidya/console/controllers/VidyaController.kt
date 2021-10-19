@@ -1,5 +1,6 @@
 package org.wit.vidya.console.controllers
 
+import com.andreapivetta.kolor.lightMagenta
 import mu.KotlinLogging
 import org.wit.vidya.console.models.VidyaJSONStore
 import org.wit.vidya.console.models.VidyaModel
@@ -14,8 +15,8 @@ val logger = KotlinLogging.logger {}
 class VidyaController {
 
     init {
-        logger.info { "Launching Vidya Console App" }
-        println("Vidya Kotlin App Version 1.0")
+        logger.info { "Launching Vidya Console App".lightMagenta() }
+        println("Vidya Kotlin App Version 1.0".lightMagenta())
     }
 
  fun start() {
@@ -28,12 +29,12 @@ class VidyaController {
              2 -> add()
              3 -> edit()
              4 -> delete()
-             -1 -> println("Exiting App")
-             else -> println("Invalid Option")
+             -1 -> println("Exiting App".lightMagenta())
+             else -> println("Invalid Option".lightMagenta())
          }
          println()
      } while (input != -1)
-     logger.info { "Shutting Down Vidya Console App" }
+     logger.info { "Shutting Down Vidya Console App".lightMagenta() }
 
  }
 
@@ -45,7 +46,7 @@ class VidyaController {
         if (vidyaView.addVidyaData(aVidya))
             games.create(aVidya)
         else
-            logger.info("Placemark Not Added")
+            logger.info("Game Not Added".lightMagenta())
     }
 
     fun list() {
@@ -62,13 +63,13 @@ class VidyaController {
             if(vidyaView.updateVidyaData(aVidya)) {
                 games.edit(aVidya)
                 vidyaView.showGame(aVidya)
-                logger.info("Game Updated : [ $aVidya ]")
+                logger.info("Game Updated : [ $aVidya ]".lightMagenta())
             }
             else
-                logger.info("Game Not Updated")
+                logger.info("Game Not Updated".lightMagenta())
         }
         else
-            println("Game Not Updated...")
+            println("Game Not Updated...".lightMagenta())
     }
 }
 
@@ -79,11 +80,11 @@ fun delete() {
 
     if(aVidya != null) {
         games.delete(aVidya)
-        println("Game Deleted...")
+        println("Game Deleted...".lightMagenta())
         vidyaView.viewWishlist(games)
     }
     else
-        println("Game Not Deleted...")
+        println("Game Not Deleted...".lightMagenta())
 }
 
 fun search() {
@@ -92,6 +93,6 @@ fun search() {
 }
 
 fun search(id: Long) : VidyaModel? {
-    var foundPlacemark = games.findOne(id)
-    return foundPlacemark
+    var foundGame = games.findOne(id)
+    return foundGame
 }
