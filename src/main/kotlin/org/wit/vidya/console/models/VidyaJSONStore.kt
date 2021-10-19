@@ -1,5 +1,7 @@
 package org.wit.vidya.console.models
 
+import com.andreapivetta.kolor.lightMagenta
+import com.andreapivetta.kolor.lightYellow
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
@@ -16,8 +18,11 @@ val JSON_FILE = "games.json"
 val gsonBuilder = GsonBuilder().setPrettyPrinting().create()
 val listType = object : TypeToken<java.util.ArrayList<VidyaModel>>() {}.type
 
-fun generateRandomId(): Long {
-    return Random().nextLong()
+var lastId = 0L
+
+fun generateId(): Long {
+    return lastId++
+   /* return Random().nextLong() */
 }
 
 class VidyaJSONStore : VidyaStore {
@@ -40,7 +45,7 @@ class VidyaJSONStore : VidyaStore {
     }
 
     override fun create(Vidya: VidyaModel) {
-        Vidya.id = generateRandomId()
+        Vidya.id = generateId()
         games.add(Vidya)
         logAll()
         serialize() //updates JSON
@@ -61,7 +66,7 @@ class VidyaJSONStore : VidyaStore {
     }
 
     internal fun logAll() {
-        games.forEach { logger.info("${it}") }
+        games.forEach { logger.info("${it}".lightMagenta()) }
     }
 
     private fun serialize() {               //necessary to update JSON file

@@ -1,9 +1,16 @@
 [
   {
-    "id": -6273495274535868453,
-    "name": "add",
-    "dev": "ddd",
-    "genre": "",
-    "note": ""
+    "id": 0,
+    "name": "ss",
+    "dev": "dd",
+    "year": 1992,
+    "note": "Great game!"
+  },
+  {
+    "id": 1,
+    "name": "Frogger",
+    "dev": "None",
+    "year": 2004,
+    "note": "Awesome!"
   }
 ]
