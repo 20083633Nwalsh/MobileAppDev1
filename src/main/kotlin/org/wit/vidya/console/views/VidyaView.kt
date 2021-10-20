@@ -2,6 +2,7 @@ package org.wit.vidya.console.views
 
 
 import com.andreapivetta.kolor.lightBlue
+import com.andreapivetta.kolor.lightMagenta
 import com.andreapivetta.kolor.lightWhite
 import mu.KotlinLogging
 import org.wit.vidya.console.models.VidyaJSONStore
@@ -22,7 +23,8 @@ class VidyaView {
         println(" 2. Add Game".lightWhite())
         println(" 3. Edit Game".lightWhite())
         println(" 4. Delete Game from Wishlist".lightWhite())
-        println("-1. Exit".lightWhite())
+        println(" 5. Search".lightWhite())
+        println("-1 Exit".lightWhite())
         println()
         print("Select a menu number : ".lightBlue())
         input = readLine()!!
@@ -35,7 +37,8 @@ class VidyaView {
 
     fun viewWishlist(games: VidyaJSONStore) {
         println("View Wishlist".lightWhite())
-        println()
+        // games.forEach { System.out.print(it) }
+        // println("Game Details [ ${games.games} ]".lightMagenta())
         games.logAll()
         println()
     }
@@ -53,12 +56,12 @@ class VidyaView {
         vidya.name = readLine()!!
         print("Enter a Developer : ".lightBlue())
         vidya.dev = readLine()!!
-        print("Enter release Year : ".lightBlue())
+        print("Enter release Year  : ".lightBlue())
         vidya.year = readLine()!!.toInt()
         print("Add a note (optional) : ".lightBlue())
         vidya.note = readLine()!!
 
-        return vidya.name.isNotEmpty() && vidya.dev.isNotEmpty()  /* && vidya.year.isNotEmpty() */
+        return vidya.name.isNotEmpty() && vidya.dev.isNotEmpty()  /* && vidya.year.isNotEmpty()  vidya.year */
     }
 
     fun updateVidyaData(vidya : VidyaModel) : Boolean {
@@ -88,17 +91,34 @@ class VidyaView {
         return false
     }
 
-    fun getId() : Long {
+    fun getId() : Int {
         var strId : String? // String to hold user input
-        var searchId : Long // Long to hold converted id
-        print("Enter id of game you wish to edit or delete : ".lightBlue())
+        var searchId : Int // Long to hold converted id
+        print("Enter id of a game : ".lightBlue())
         strId = readLine()!!
-        searchId = if (strId.toLongOrNull() != null && !strId.isEmpty())
-            strId.toLong()
+        searchId = if (strId.toIntOrNull() != null && !strId.isEmpty())
+            strId.toInt()
         else
             -9
         return searchId
     }
+
+
+    // Tried to figure out validation for entering year but could not figure it out
+/*
+    fun year() : Int {
+        var option : Int
+        var input: String? = null
+        input = readLine()!!
+        option = if (input.toIntOrNull() != null && !input.isEmpty())
+            input.toInt()
+        else
+            menu()
+        return option
+    }
+
+*/
+
     // Would have liked to have implemented a get a game by name function
 /*
     fun getName() : String {
@@ -114,5 +134,24 @@ class VidyaView {
 
 
  */
+    /*
+    fun genreSelect() : Int {
+        var option : Int
+        var input: String? = null
 
+        println("Select a Genre")
+        println(" 1. Action")
+        println(" 2. Horror")
+        println(" 3. Strategy")
+        println("4. Other")
+        println()
+        print("Enter an integer : ")
+        input = readLine()!!
+        option = if (input.toIntOrNull() != null && !input.isEmpty())
+            input.toInt()
+        else
+            -9
+        return option
+    }
+    */
 }

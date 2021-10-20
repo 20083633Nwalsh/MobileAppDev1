@@ -3,9 +3,9 @@ package org.wit.vidya.console.models
 import mu.KotlinLogging
 
 private val logger = KotlinLogging.logger {}
+var lastId = 0 // Would have liked to use short here
 
-
-internal fun getId(): Long {
+internal fun getId(): Int {
     return lastId++
 }
 
@@ -17,7 +17,7 @@ class VidyaMemStore : VidyaStore {
         return games
     }
 
-    override fun findOne(id: Long) : VidyaModel? {
+    override fun findOne(id: Int) : VidyaModel? {
         var foundVidya: VidyaModel? = games.find { p -> p.id == id }
         return foundVidya
     }

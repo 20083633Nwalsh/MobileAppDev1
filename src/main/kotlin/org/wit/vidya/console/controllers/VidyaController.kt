@@ -16,7 +16,7 @@ class VidyaController {
 
     init {
         logger.info { "Launching Vidya Console App".lightMagenta() }
-        println("Vidya Kotlin App Version 1.0".lightMagenta())
+        println("Vidya Kotlin App Version 2.0".lightMagenta())
     }
 
  fun start() {
@@ -29,6 +29,7 @@ class VidyaController {
              2 -> add()
              3 -> edit()
              4 -> delete()
+             5 -> search()
              -1 -> println("Exiting App".lightMagenta())
              else -> println("Invalid Option".lightMagenta())
          }
@@ -88,11 +89,12 @@ fun delete() {
 }
 
 fun search() {
+    games.logAll()
     val aVidya = search(vidyaView.getId())!!
     vidyaView.showGame(aVidya)
 }
 
-fun search(id: Long) : VidyaModel? {
+fun search(id: Int) : VidyaModel? {
     var foundGame = games.findOne(id)
     return foundGame
 }

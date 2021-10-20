@@ -18,11 +18,11 @@ val JSON_FILE = "games.json"
 val gsonBuilder = GsonBuilder().setPrettyPrinting().create()
 val listType = object : TypeToken<java.util.ArrayList<VidyaModel>>() {}.type
 
-var lastId = 0L
 
-fun generateId(): Long {
-    return lastId++
-   /* return Random().nextLong() */
+
+fun generateId(): Int {
+    // return lastId++
+    return Random().nextInt()
 }
 
 class VidyaJSONStore : VidyaStore {
@@ -39,7 +39,7 @@ class VidyaJSONStore : VidyaStore {
         return games
     }
 
-    override fun findOne(id: Long) : VidyaModel? {
+    override fun findOne(id: Int) : VidyaModel? {
         var foundVidya: VidyaModel? = games.find { p -> p.id == id }
         return foundVidya
     }
