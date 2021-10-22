@@ -51,17 +51,22 @@ class VidyaView {
     }
 
     fun addVidyaData(vidya : VidyaModel) : Boolean {
-        println()
-        print("Enter a Name : ".lightBlue())
-        vidya.name = readLine()!!
-        print("Enter a Developer : ".lightBlue())
-        vidya.dev = readLine()!!
-        print("Enter release Year  : ".lightBlue())
-        vidya.year = readLine()!!.toInt()
-        print("Add a note (optional) : ".lightBlue())
-        vidya.note = readLine()!!
+        try {
+            println()
+            print("Enter a Name : ".lightBlue())
+            vidya.name = readLine()!!
+            print("Enter a Developer : ".lightBlue())
+            vidya.dev = readLine()!!
+            print("Enter release Year  : ".lightBlue())
+            vidya.year = readLine()!!.toInt()
+            }
+        catch(e: NumberFormatException) {
+            print("Empty input not allowed. Game will note be added \n")
+        }
+            print("Add a note (optional) : ".lightBlue())
+            vidya.note = readLine()!!
 
-        return vidya.name.isNotEmpty() && vidya.dev.isNotEmpty()  /* && vidya.year.isNotEmpty()  vidya.year */
+        return vidya.name.isNotEmpty() && vidya.dev.isNotEmpty()  /*&& vidya.year.toString().isNotEmpty() */
     }
 
     fun updateVidyaData(vidya : VidyaModel) : Boolean {
@@ -81,7 +86,7 @@ class VidyaView {
             print("Enter a new note (optional) : ".lightBlue())
             tempNote = readLine()!!
             vidya.note = tempNote
-            if (!tempName.isNullOrEmpty() && !tempDev.isNullOrEmpty()  /* && !tempYear.isNullOrEmpty() */ ) {
+            if (!tempName.isNullOrEmpty() && !tempDev.isNullOrEmpty()   && !tempYear.toString().isNullOrEmpty()  ) {
                 vidya.name = tempName
                 vidya.dev = tempDev
                 vidya.year = tempYear
